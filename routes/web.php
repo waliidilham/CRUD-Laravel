@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,10 +9,12 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/', [GuestController::class, 'dashboard']);
-Route::get('/user', [GuestController::class, 'index'])->name('index');
-Route::get('/create', [GuestController::class, 'create'])->name('user.create');
-Route::post('/store', [GuestController::class, 'store'])->name('user.store');
+Route::get('/', [AdminController::class, 'dashboard']);
+Route::get('/user', [AdminController::class, 'index'])->name('index');
+Route::get('/create', [AdminController::class, 'create'])->name('user.create');
 
-Route::get('/edit/{id}', [GuestController::class, 'edit'])->name('user.edit');
-Route::put('/update/{id}', [GuestController::class, 'update'])->name('user.update');
+//table admin account
+Route::post('/store', [AdminController::class, 'store'])->name('user.store');
+Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('user.edit');
+Route::put('/update/{id}', [AdminController::class, 'update'])->name('user.update');
+Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('user.delete');
