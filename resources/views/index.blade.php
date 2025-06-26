@@ -62,9 +62,36 @@
                     <td>
                       <a href="{{ route('user.edit', ['id'=>$d->id]) }}" class="btn btn-primary"><i
                           class="fas fa-pen"></i>Edit</a>
-                      <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Hapus</a>
+                      <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal-hapus{{ $d->id }}"><i
+                          class="fas fa-trash-alt"></i>Hapus</a>
                     </td>
                   </tr>
+                  <div class="modal fade" id="modal-hapus{{ $d->id }}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Konfirmasi Hapus Data</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Apakah Anda yakin untuk menghapus Data User <b>{{ $d->name }}</b></p>
+                        </div>
+                        <div class="modal-footer ">
+                          <form action="{{ route('user.delete', ['id'=>$d->id]) }}" method="POST">
+                            <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                          </form>
+
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
                   @endforeach
 
                 </tbody>

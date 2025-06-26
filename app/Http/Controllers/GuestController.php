@@ -10,69 +10,69 @@ use PhpParser\Node\Expr\FuncCall;
 
 class GuestController extends Controller
 {
-    public function dashboard()
-    {
-        return view('dashboard');
-    }
+    // public function dashboard()
+    // {
+    //     return view('dashboard');
+    // }
 
-    public function index()
-    {
+    // public function index()
+    // {
 
-        $data = User::get();
-        return view('index', compact('data'));
-    }
-    public function create()
-    {
+    //     $data = User::get();
+    //     return view('index', compact('data'));
+    // }
+    // public function create()
+    // {
 
-        return view('create');
-    }
+    //     return view('create');
+    // }
 
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'nama' => 'required',
-            'email' => 'required',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|email',
+    //         'nama' => 'required',
+    //         'email' => 'required',
+    //     ]);
 
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+    //     if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['name'] = $request->nama;
-        $data['email'] = $request->email;
-        $data['password'] = Hash::make($request->password);
+    //     $data['name'] = $request->nama;
+    //     $data['email'] = $request->email;
+    //     $data['password'] = Hash::make($request->password);
 
-        User::create($data);
+    //     User::create($data);
 
-        return redirect()->route('index');
-    }
+    //     return redirect()->route('index');
+    // }
 
-    public function edit(Request $request, $id)
-    {
-        $data = User::find($id);
+    // public function edit(Request $request, $id)
+    // {
+    //     $data = User::find($id);
 
-        // dd($data);
-        return view('edit', compact('data'));
-    }
+    //     // dd($data);
+    //     return view('edit', compact('data'));
+    // }
 
-    public function update(Request $request, $id)
-    {
-        // dd($request->all()); // untuk melihar  reques data apakah sudah masuk atau belum
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'nama' => 'required',
-            'email' => 'nullable',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     // dd($request->all()); // untuk melihar  reques data apakah sudah masuk atau belum
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|email',
+    //         'nama' => 'required',
+    //         'email' => 'nullable',
+    //     ]);
 
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+    //     if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
-        $data['name'] = $request->nama;
-        $data['email'] = $request->email;
-        if ($request->password) {
-            $data['password'] = Hash::make($request->password);
-        }
+    //     $data['name'] = $request->nama;
+    //     $data['email'] = $request->email;
+    //     if ($request->password) {
+    //         $data['password'] = Hash::make($request->password);
+    //     }
 
-        User::whereId($id)->update($data);
+    //     User::whereId($id)->update($data);
 
-        return redirect()->route('index');
-    }
+    //     return redirect()->route('index');
+    // }
 }
