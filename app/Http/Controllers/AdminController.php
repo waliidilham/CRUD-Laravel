@@ -24,7 +24,7 @@ class AdminController extends Controller
     public function create()
     {
 
-        return view('create');
+        return view('admin.create');
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class AdminController extends Controller
 
         User::create($data);
 
-        return redirect()->route('index');
+        return redirect()->route('admin.index');
     }
 
     public function edit(Request $request, $id)
