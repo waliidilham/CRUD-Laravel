@@ -148,8 +148,8 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
+          <a class="nav-link" href="{{ route('logout') }}" role="button">
+            logout
           </a>
         </li>
       </ul>
@@ -192,15 +192,15 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./index.html" class="nav-link active">
+                  <a href="{{ route('admin.dashboard') }}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v1</p>
+                    <p>Dashboard</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./index2.html" class="nav-link">
+                  <a href="{{ route('admin.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v2</p>
+                    <p>User</p>
                   </a>
                 </li>
                 <li class="nav-item">
