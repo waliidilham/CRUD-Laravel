@@ -26,7 +26,7 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-12">
-          <a href="{{ route('user.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+          <a href="{{ route('admin.user.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Responsive Hover Table</h3>
@@ -60,7 +60,7 @@
                     <td>{{ $d->email }}</td>
                     <td>{{ $d->name }}</td>
                     <td>
-                      <a href="{{ route('user.edit', ['id'=>$d->id]) }}" class="btn btn-primary"><i
+                      <a href="{{ route('admin.user.edit', ['id'=>$d->id]) }}" class="btn btn-primary"><i
                           class="fas fa-pen"></i>Edit</a>
                       <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modal-hapus{{ $d->id }}"><i
                           class="fas fa-trash-alt"></i>Hapus</a>
@@ -79,7 +79,7 @@
                           <p>Apakah Anda yakin untuk menghapus Data User <b>{{ $d->name }}</b></p>
                         </div>
                         <div class="modal-footer ">
-                          <form action="{{ route('user.delete', ['id'=>$d->id]) }}" method="POST">
+                          <form action="{{ route('admin.user.delete', ['id'=>$d->id]) }}" method="POST">
                             <button type="submit" class="btn btn-primary">Ya, Hapus</button>
                             @csrf
                             @method('DELETE')
