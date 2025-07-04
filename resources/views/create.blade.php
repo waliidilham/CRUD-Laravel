@@ -23,7 +23,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <form action="{{ route('user.store') }}" method="POST">
+      <form action="{{ route('admin.user.store') }}" method="POST">
         {{-- untuk kepentingan security @csrf --}}
         @csrf
         <div class="row">

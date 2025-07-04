@@ -23,7 +23,7 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <form action="{{ route('user.update' , ['id'=>$data->id]) }}" method="POST">
+      <form action="{{ route('admin.user.update' , ['id'=>$data->id]) }}" method="POST">
         {{-- untuk kepentingan security @csrf --}}
         @csrf
         @method('PUT') {{-- karena meenggunakan put makanya hrus di beri method --}}

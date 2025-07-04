@@ -29,4 +29,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
   Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('user.edit');
   Route::put('/update/{id}', [AdminController::class, 'update'])->name('user.update');
   Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('user.delete');
+
+  //table data warga account
+  Route::get('/Data-Warga', [AdminController::class, 'data_warga'])->name('data_warga');
+  Route::get('/Create_Data-Warga', [AdminController::class, 'create_data_warga'])->name('user.create_data_warga');
+  Route::post('/Store_Data-Warga', [AdminController::class, 'store_data_warga'])->name('user.store_data_warga');
+  Route::get('/Edit_Data-Warga/{id}', [AdminController::class, 'edit_data_warga'])->name('user.edit_data_warga');
+  Route::put('/Update_Data-Warga/{id}', [AdminController::class, 'update_data_warga'])->name('user.update_data_warga');
+  Route::delete('/Delete_Data-Warga/{id}', [AdminController::class, 'delete_data_warga'])->name('user.delete_data_warga');
 });
