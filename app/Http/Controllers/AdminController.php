@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Support\Str;
 
+use function Laravel\Prompts\search;
+
 class AdminController extends Controller
 {
     public function dashboard()
@@ -18,11 +20,17 @@ class AdminController extends Controller
         return view('dashboard');
     }
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $data = User::get();
-        return view('index', compact('data'));
+        $data = new User;
+        if ($request->get('search')) {
+            $data = $data->where('name', 'LIKE', '%' . $request->get('search') . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->get('search') . '%');
+        }
+
+        $data = $data->get();
+        return view('index', compact('data', 'request'));
     }
     public function create()
     {
@@ -104,7 +112,8 @@ class AdminController extends Controller
                     ->orWhere('nik', 'like', "%{$search}%")
                     ->orWhere('nomor_induk_warga', 'like', "%{$search}%")
                     ->orWhere('nomor_induk_PSHT_lampung', 'like', "%{$search}%")
-                    ->orWhere('ranting', 'like', "%{$search}%");
+                    ->orWhere('ranting', 'like', "%{$search}%")
+                    ->orWhere('cabang', 'like', "%{$search}%");
             });
         }
 
@@ -246,17 +255,21 @@ class AdminController extends Controller
         // MODIFIKASI LOGIKA UPLOAD FILE DENGAN TIMESTAMP
         // ====================================================================
 
+        // ... di dalam method update_data_warga
+
+        // MODIFIKASI LOGIKA UPLOAD FILE DENGAN is_file()
         $namaDasarFile = Str::slug($request->name, '_');
-        $waktuUpload = time(); // Mendapatkan Unix timestamp saat ini
+        $waktuUpload = time();
 
         // Logika untuk file 'profile'
         if ($request->hasFile('profile')) {
-            // Hapus file lama jika ada
-            if ($dataWarga->profile && file_exists(public_path($dataWarga->profile))) {
-                unlink(public_path($dataWarga->profile));
+            $pathFileLama = public_path($dataWarga->profile);
+            // Hapus file lama HANYA JIKA ADA dan merupakan sebuah FILE
+            if ($dataWarga->profile && is_file($pathFileLama)) {
+                unlink($pathFileLama);
             }
+
             $file = $request->file('profile');
-            // Membuat nama file baru: nama_warga_timestamp.jpg
             $nama_file = $namaDasarFile . '_' . $waktuUpload . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('profile'), $nama_file);
             $data['profile'] = 'profile/' . $nama_file;
@@ -264,17 +277,19 @@ class AdminController extends Controller
 
         // Logika untuk file 'image' (KTW)
         if ($request->hasFile('image')) {
-            // Hapus file lama jika ada
-            if ($dataWarga->image && file_exists(public_path($dataWarga->image))) {
-                unlink(public_path($dataWarga->image));
+            $pathFileLama = public_path($dataWarga->image);
+            // Hapus file lama HANYA JIKA ADA dan merupakan sebuah FILE
+            if ($dataWarga->image && is_file($pathFileLama)) {
+                unlink($pathFileLama);
             }
+
             $file = $request->file('image');
-            // Membuat nama file baru: kartu_tanda_warga_nama_warga_timestamp.jpg
             $nama_file = 'kartu_tanda_warga_' . $namaDasarFile . '_' . $waktuUpload . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('image'), $nama_file);
             $data['image'] = 'image/' . $nama_file;
         }
 
+        // ... sisa kode update
         // ====================================================================
 
         // 5. Kondisi untuk update password

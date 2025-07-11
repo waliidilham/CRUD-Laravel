@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DataTableController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
   Route::get('/Edit_Data-Warga/{id}', [AdminController::class, 'edit_data_warga'])->name('user.edit_data_warga');
   Route::put('/Update_Data-Warga/{id}', [AdminController::class, 'update_data_warga'])->name('user.update_data_warga');
   Route::delete('/Delete_Data-Warga/{id}', [AdminController::class, 'delete_data_warga'])->name('user.delete_data_warga');
+
+  Route::get('/clientside', [DataTableController::class, 'clientside'])->name('clientside');
+  Route::get('/serverside', [DataTableController::class, 'serverside'])->name('serverside');
 });
